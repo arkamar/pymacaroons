@@ -1,4 +1,3 @@
-from nose.tools import *
 from pymacaroons import Macaroon, Verifier, MACAROON_V1, MACAROON_V2
 from pymacaroons.serializers import JsonSerializer
 
@@ -66,9 +65,9 @@ class TestSerializationCompatibility(object):
 
 
 def assert_macaroon(m, discharge, version):
-    assert_equal(m.location, 'my location')
-    assert_equal(m.version, version)
-    assert_equal(m.identifier_bytes, b'my identifier')
+    assert m.location == 'my location'
+    assert m.version == version
+    assert m.identifier_bytes == b'my identifier'
     v = Verifier()
     v.satisfy_exact('fp caveat')
     verified = v.verify(
@@ -76,4 +75,4 @@ def assert_macaroon(m, discharge, version):
         "my secret key",
         discharge_macaroons=[discharge],
     )
-    assert_true(verified)
+    assert verified
